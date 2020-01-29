@@ -1,7 +1,3 @@
-    //<![CDATA[
-    // Theia Sticky Sidebar v1.3.0 - https://github.com/WeCodePixels/theia-sticky-sidebar
-    // Thank to: bungfrangki
-    // Tutorial: https://goo.gl/szhFRE
     ! function(i) {
         i.fn.theiaStickySidebar = function(t) {
             function o(t, o) {
@@ -116,4 +112,3 @@
 		  additionalMarginBottom: 10
 	  })
 	});
-	//]]>
