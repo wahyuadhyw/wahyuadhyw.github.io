@@ -1,3 +1,6 @@
+// Related post for blogger
+// Modified by WAHYU ADHY WIAKSONO
+// Thank to JahetBungas
 //<![CDATA[
 var relatedTitles = new Array();
 var relatedTitlesNum = 0;
