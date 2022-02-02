@@ -17,6 +17,18 @@
   position: absolute;
 }
 
+.iframe-analytics-responsive {
+  padding: 5%;
+  padding-bottom: 100%;
+  position: relative;
+}
+
+.iframe-analytics-responsive iframe {
+  height: 100%;
+  width: 90%;
+  position: absolute;
+}
+
 a:link {
   text-decoration: none;
 }
