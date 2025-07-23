@@ -1,0 +1,74 @@
+    <!-- Projects -->
+    <div class="bg-white text-black p-4 shadow flex justify-center rounded-lg mb-2">
+      <h3 class="text-sm font-bold">PROJECT</h3>
+    </div>
+    <section class="grid gap-3" id="project-list"></section>
+      <!-- Script untuk ambil dan tampilkan repo -->
+      <script>
+      const githubUsername = "wahyuadhyw";
+      const reposPerPage = 4;
+      let currentPage = 1;
+      let allRepos = [];
+
+      function displayRepos(page) {
+        const container = document.getElementById('project-list');
+        container.innerHTML = ''; // Kosongkan dulu
+
+        const start = (page - 1) * reposPerPage;
+        const end = start + reposPerPage;
+        const visibleRepos = allRepos.slice(start, end);
+
+        visibleRepos.forEach(repo => {
+          const card = document.createElement('div');
+          card.className = "bg-white text-black p-4 shadow hover:shadow-md transition rounded-lg";
+
+          card.innerHTML = `
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" class="w-5 h-5">
+                <h3 class="text-lg font-semibold">${repo.name}</h3>
+              </div>
+              <span class="text-sm bg-gray-200 text-gray-800 px-2 py-0.5 rounded">${repo.language || "Unknown"}</span>
+            </div>
+            <p class="mt-2 text-sm">${repo.description || "No description provided."}</p>
+            <div class="mt-2 flex items-center justify-between">
+              <a href="${repo.html_url}" target="_blank" class="text-blue-600 text-sm hover:underline">Lihat di GitHub</a>
+              <span class="text-sm text-gray-600">⭐ ${repo.stargazers_count}</span>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        setupPagination();
+      }
+
+      function setupPagination() {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+        const totalPages = Math.ceil(allRepos.length / reposPerPage);
+
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i;
+          btn.className = `px-3 py-1 border rounded ${i === currentPage ? 'bg-blue-600 text-white' : 'bg-gray-400'}`;
+          btn.addEventListener('click', () => {
+            currentPage = i;
+            displayRepos(currentPage);
+          });
+          pagination.appendChild(btn);
+        }
+      }
+
+      fetch(`https://api.github.com/users/${githubUsername}/repos`)
+        .then(response => response.json())
+        .then(repos => {
+          allRepos = repos;
+          displayRepos(currentPage);
+        })
+        .catch(error => {
+          console.error("Gagal mengambil repositori:", error);
+          document.getElementById('project-list').innerHTML = `<p class="text-sm text-red-500">Gagal memuat proyek dari GitHub.</p>`;
+        });
+      </script>
+    </section>
+    <div id="pagination" class="flex gap-2 mt-4 justify-center"></div>

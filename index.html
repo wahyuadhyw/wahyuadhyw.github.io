@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wahyu Adhy Wicaksono</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-white font-sans">
+  
+<!-- Header dengan background gambar sampul -->
+<header id="header-section" class="bg-white"></header>
+
+<!-- About + Projects -->
+<main class="max-w-screen-xl mx-auto lg:px-[230px] p-4 flex flex-col md:flex-row gap-4">
+  
+  <!-- Left side (About) -->
+  <section id="about-section" class="w-full md:basis-4/5 space-y-2"></section>
+
+  <!-- Right side (Projects) -->
+  <div id="project-section" class="flex flex-col w-full md:basis-3/5"></div>
+  
+</main>
+
+<!-- Bottom social media -->
+<div id="social-section" class="max-w-screen-xl mx-auto lg:px-[230px] px-4"></div>
+
+</body>
+<footer id="footer-section" class="bg-white text-gray-300 py-1 mt-4"></footer>
+
+</html>
+
+<!-- JS Header -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("header.html")
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("header-section").innerHTML = html;
+      })
+      .catch(error => {
+        console.error("Gagal memuat konten:", error);
+      });
+  });
+</script>
+
+<!-- JS About -->
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("about.html")
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("about-section").innerHTML = html;
+      })
+      .catch(error => {
+        console.error("Gagal memuat konten:", error);
+      });
+  });
+</script>
+
+<!-- JS social media -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("social-media.html")
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("social-section").innerHTML = html;
+      })
+      .catch(error => {
+        console.error("Gagal memuat konten:", error);
+      });
+  });
+</script>
+
+<!-- JS project -->
+<script>
+  fetch("project.html")
+    .then(response => response.text())
+    .then(data => {
+      const container = document.getElementById("project-section");
+      container.innerHTML = data;
+
+      // Cari dan jalankan semua <script> di dalam project.html
+      const scripts = container.querySelectorAll("script");
+      scripts.forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        document.body.appendChild(newScript); // Tempelkan ke <body> agar langsung dieksekusi
+      });
+    })
+    .catch(error => {
+      console.error("Gagal memuat konten:", error);
+    });
+</script>
+
+<!-- Footer -->
+<script>
+  fetch("footer.html")
+    .then(response => response.text())
+    .then(data => {document.getElementById("footer-section").innerHTML = data;})
+    .catch(error => {console.error("Gagal memuat konten:", error);});
+</script>
